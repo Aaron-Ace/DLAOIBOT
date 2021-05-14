@@ -1,4 +1,5 @@
-# 植基於深度學習之自動光學檢測與機械手臂自動控制  
+# 植基於深度學習之自動光學檢測與機械手臂自動控制 
+![image](https://github.com/Aaron-Ace/DLAOIBOT/blob/main/resource/Cover.jpg)
 
 ## 前言
 * 在台灣工廠勞動力短缺以及人事成本高昂等因素下，越來越多工廠轉型發展自動化，從產品的生產、組裝、包裝到品管，一整條的流水線，都已漸漸朝自動化作業努力，期能藉此減少人力成本外，並提昇生產效能及生產品質，以提高產業競爭力。但許多自動化的技術基礎目前仍有一定瓶頸與門檻，且工廠生產線上的產品不同，技術通常就須面對不同的挑戰，無法用同一套技術施作在所有生產線上，技術開者仍然要針對實際狀況做不同程度的修正調校，所幸近年來深度學習技術發展迅速，尤其在電腦視覺的應用上更有許多令人矚目的突破，加上其經常可以端到端(End-to-End)的方式運作，只須借助大量訓練資料的收集即可建立有效的智慧偵測與辨識模型，並不需要設計者運用太多專業知識於資料的處理與模型的設計，可大幅降低系統開者專業背景的需求門檻，即使要運用技術於不同產品的生產線，通常也只需收集新訓練資料後再追加訓練或調校模型即可，因此，系統的更新與延伸擴充成本也相對容易且成本較低。
@@ -26,14 +27,33 @@
 回到Step 1直到畫面上再無物件存在。  
 ---
 ## 流程簡圖
-![image](https://github.com/NDHUCSIEProject/GraduateProject/blob/master/Process%20Chart.png)  
+![image](https://github.com/Aaron-Ace/DLAOIBOT/blob/main/resource/Process%20Chart.png)  
+---
+## 開發系統
+### 硬體
+*	Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz
+*	64 位元作業系統， x64 型處理器
+*	GEFORCE GTX 1080 Ti
+*	Arduino Uno 開發板
+*	3D列印機械手臂
+### 軟體
+* Ubuntu 20.04
+* Python Language
+*	C/C++ Language
+*	Opencv
+*	Sklearn
 ---
 ## 技術應用  
 ### Yolo  
 Yolo是一種靠CNN實現的物件識別演算法，利用CNN來同時預測多個bounding-box並且針對每一個box來計算物體的機率，而在訓練的時候也是直接拿整張圖丟到NN中來訓練，這樣end-to-end的演算法可以避免傳統object detection的必須分開訓練的缺點，並且大幅加快運算速度。  
 Yolo 參考資料 : https://github.com/AlexeyAB  
-CNN 參考資料 : https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC5-1%E8%AC%9B-%E5%8D%B7%E7%A9%8D%E7%A5%9E%E7%B6%93%E7%B6%B2%E7%B5%A1%E4%BB%8B%E7%B4%B9-convolutional-neural-network-4f8249d65d4f
- 
+CNN 參考資料 : https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC5-1%E8%AC%9B-%E5%8D%B7%E7%A9%8D%E7%A5%9E%E7%B6%93%E7%B6%B2%E7%B5%A1%E4%BB%8B%E7%B4%B9-convolutional-neural-network-4f8249d65d4f  
+#### Labelimg  
+Yolo是屬於機器學習令譽當中監督式學習的一種，所以所有訓練資料都必須Label，底下連結為我們這次Label所使用的工具。  
+連結 : https://github.com/tzutalin/labelImg  
+#### 訓練結果
+![image](https://github.com/Aaron-Ace/DLAOIBOT/blob/main/resource/Yolo_Demo.jpg)  
+
 ---
 ### 二元決策樹(Binary Decision Tree)
 我們將Yolo辨識出物件的BoundingBox的長和寬，放進此Binary Decision Tree中，來辨別此物件的大小。
@@ -43,7 +63,7 @@ CNN 參考資料 : https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88
   * **Sklearn**
   * **Numpy**  
 
-程式碼 : https://github.com/NDHUCSIEProject/GraduateProject/blob/master/Organize/RecognizeSize/decisionTree.py  
+程式碼 : https://github.com/Aaron-Ace/DLAOIBOT/blob/main/decisionTree.py  
 binary decision tree 參考資料 : https://medium.com/@Packt_Pub/binary-decision-trees-1ec94cfed208  
 
 ---
@@ -66,6 +86,7 @@ Pycharm官網 : https://www.jetbrains.com/pycharm/
 ```python
 import serial
 ```  
+程式碼 : https://github.com/Aaron-Ace/DLAOIBOT/blob/main/armcontrol.py
 * **Arduino IDE**   
 記得要加入此標頭檔，才能與Pycharm傳輸資料。  
 ```c
@@ -74,7 +95,7 @@ import serial
 此標頭檔為伺服馬達所需。  
 ```c
 #include <Servo.h>
-```  
+``` 
 ---
 ### Attend Regressor
 我們用此神經網路模型，將圖片經過Yolo模型所得出的物件位置(x, y)後並採用Perspective Transform的方式，轉換成平台上的座標(u, v)，  
@@ -86,43 +107,45 @@ import serial
   * **Pandas**
   * **Tensorflow**  
 * **Perspective Transform 透視轉換**  
-程式碼 : https://github.com/NDHUCSIEProject/GraduateProject/blob/master/Organize/XY2UV.py   
+程式碼 : https://github.com/Aaron-Ace/DLAOIBOT/blob/main/XY2UV.py 
 Perspective Transform 可以將圖片中任意四點，依此為參考點重新校正成矩形。  
 ```python
 src_points = np.array([[25, 39], [711, 38], [27, 715], [706, 714]],np.float32) #(x, y)
 dst_points = np.array([[-20, -20], [-20, 20], [20, -20], [20, 20]],np.float32) #(x, y)
 ```
-src_points為參考點，校正成dst_points為需要的座標點。  
+src_points為參考點(可以根據需求自行調整)，校正成dst_points為需要的座標點。  
 ```python
 M = cv2.getPerspectiveTransform(src_points, dst_points)
 ```
 使用此函數，得出的M即為轉換矩陣。  
 Perspective Transform 參考資料 : https://www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform-example/  
 * **Attend Regressor模型**  
-程式碼 : https://github.com/NDHUCSIEProject/GraduateProject/tree/master/Organize/MLP  
+程式碼 : https://github.com/Aaron-Ace/DLAOIBOT/tree/main/MLP  
 資料蒐集約250筆，其中訓練資料約200筆，測資約50筆。  
   
 ---
 ### 機器手臂 RobotArm
 機器手臂為自己製作，先用3D印表機印出需要的零件，在進行組裝。  
-機器手臂設計圖 : https://github.com/NDHUCSIEProject/GraduateProject/tree/master/RoboticArm3DPrint  
+機器手臂設計圖 : https://github.com/Aaron-Ace/DLAOIBOT/tree/main/RoboticArm3DModel  
 3D印表機規格 : https://www.3dprow.com/products/snapmaker-20-a250  
+機器手臂控制程式碼 : https://github.com/Aaron-Ace/DLAOIBOT/blob/main/ArduinoCode/ArduinoCode.ino 
 
 ---
 ## Usage
 在command下載 :   
 ```
-git clone https://github.com/NDHUCSIEProject/GraduateProject.git
+https://github.com/Aaron-Ace/DLAOIBOT.git
 ```
-將上述技術應用所提及的執行所需環境安裝好，再校正鏡頭的畫面座標和平台上的座標點，在command打上 :   
+執行Main Program
 ```
-python XY2UV.py
-```  
-校正完成後，直接在command執行即可。
-
+python main.py
 ```
-python main.py  
-```  
+利用GUI執行Main Program
+```
+python GUI.py
+```
 ---
 # 成果展示
-影片連結 : https://youtu.be/uPm1C0UR8dU 
+* **影片連結** : https://youtu.be/YGjaYCNhIYg  
+* **平台展示**
+![image](https://github.com/Aaron-Ace/DLAOIBOT/blob/main/resource/Platform.png)
