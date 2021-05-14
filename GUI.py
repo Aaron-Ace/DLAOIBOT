@@ -6,7 +6,7 @@ from main import mainfunc
 
 def writefile():
     id  =['Screw_Option:','Nut_Option:','Size_Big_Option:','Size_Medium_Option:','Size_Small_Option:']
-    file = open("OptionCheckList.ini", "w+")
+    file = open("OptionCheckList.ini", "w")
     file.write(id[0]+str(Screw.get())+"\n")
     file.write(id[1]+str(Nut.get())+"\n")
     file.write(id[2]+str(Big.get())+"\n")
@@ -14,49 +14,20 @@ def writefile():
     file.write(id[4]+str(Small.get())+"\n")
     file.close()
 
-
 def ScrewIsChecked():
-    if Screw.get() == 1:
-        Screw.set(1)
-        print("2224")
-        writefile()
-    elif Screw.get() == 0:
-        Screw.set(0)
-        writefile()
-    else:
-        messagebox.showerror('PythonGuides', 'Something went wrong!')
+    writefile()
 
 def NutIsChecked():
-    if Nut.get() == 1:
-        writefile()
-    elif Nut.get() == 0:
-        writefile()
-    else:
-        messagebox.showerror('PythonGuides', 'Something went wrong!')
+    writefile()
 
 def BigIsChecked():
-    if Big.get() == 1:
-        writefile()
-    elif Big.get() == 0:
-        writefile()
-    else:
-        messagebox.showerror('PythonGuides', 'Something went wrong!')
+    writefile()
 
 def MidIsChecked():
-    if Mid.get() == 1:
-        writefile()
-    elif Mid.get() == 0:
-        writefile()
-    else:
-        messagebox.showerror('PythonGuides', 'Something went wrong!')
+    writefile()
 
 def SmallIsChecked():
-    if Small.get() == 1:
-        writefile()
-    elif Small.get() == 0:
-        writefile()
-    else:
-        messagebox.showerror('PythonGuides', 'Something went wrong!')
+    writefile()
 
 def CameraCheck():
     cam = cv2.VideoCapture(0)
@@ -81,6 +52,7 @@ def ForceStop():
     sys.exit()
 def Execute():
     mainfunc()
+    pass
 if __name__ == '__main__':
     ws = Tk()
     ws.title('PythonGuides')
@@ -97,11 +69,6 @@ if __name__ == '__main__':
 
     file = open('OptionCheckList.ini', 'r')
 
-    global Screw
-    global Nut
-    global Big
-    global Mid
-    global Small
     Screw = IntVar()
     Nut   = IntVar()
     Big   = IntVar()
@@ -109,19 +76,19 @@ if __name__ == '__main__':
     Small = IntVar()
     for line in file:
         if (line.find('Screw_Option:') == 0):
-            Checkbutton(ws, text="Screw" , variable=Screw, onvalue=1, offvalue=0, command=ScrewIsChecked()).place(x=5,y=100)
+            Checkbutton(ws, text="Screw" , variable=Screw, onvalue=1, offvalue=0, command=ScrewIsChecked).place(x=5,y=100)
             Screw.set(int(line[line.find('Screw_Option:') + 13:line.find('Screw_Option:') + 14]))
         if (line.find('Nut_Option:') == 0):
-            Checkbutton(ws, text=" Nut " , variable=Nut, onvalue=1, offvalue=0, command=NutIsChecked()).place(x=105,y=100)
+            Checkbutton(ws, text=" Nut " , variable=Nut, onvalue=1, offvalue=0, command=NutIsChecked).place(x=105,y=100)
             Nut.set(int(line[line.find('Nut_Option:') + 11:line.find('Nut_Option:') + 12]))
         if (line.find('Size_Big_Option:') == 0):
-            Checkbutton(ws, text=" Big " , variable=Big, onvalue=1, offvalue=0, command=BigIsChecked()).place(x=5,y=150)
+            Checkbutton(ws, text=" Big " , variable=Big, onvalue=1, offvalue=0, command=BigIsChecked).place(x=5,y=150)
             Big.set(int(line[line.find('Size_Big_Option:') + 16:line.find('Size_Big_Option:') + 17]))
         if (line.find('Size_Medium_Option:') == 0):
-            Checkbutton(ws, text="Medium", variable=Mid, onvalue=1, offvalue=0, command=MidIsChecked()).place(x=105,y=150)
+            Checkbutton(ws, text="Medium", variable=Mid, onvalue=1, offvalue=0, command=MidIsChecked).place(x=105,y=150)
             Mid.set(int(line[line.find('Size_Medium_Option:') + 19:line.find('Size_Medium_Option:') + 20]))
         if (line.find('Size_Small_Option:') == 0):
-            Checkbutton(ws, text="Small" , variable=Small, onvalue=1, offvalue=0, command=SmallIsChecked()).place(x=205,y=150)
+            Checkbutton(ws, text="Small" , variable=Small, onvalue=1, offvalue=0, command=SmallIsChecked).place(x=205,y=150)
             Small.set(int(line[line.find('Size_Small_Option:') + 18:line.find('Size_Small_Option:') + 19]))
     file.close()
 
