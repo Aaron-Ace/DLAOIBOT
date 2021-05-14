@@ -72,7 +72,7 @@ Arduino是一套可以將Arduino的編譯環境中已編譯的程式碼燒錄至
 Arduino 參考資料 : https://blog.jmaker.com.tw/arduino-tutorials-1/
 * **Requirement**  (Arduino的環境是建立在Anaconda中，故環境安裝皆採用conda install)  
 Anaconda官網 : https://www.anaconda.com/products/individual
-  * **Python*
+  * **Python**
   * **Pyserial**    
 ```
 conda create -n arduino python
