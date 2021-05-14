@@ -49,7 +49,7 @@ Yolo是一種靠CNN實現的物件識別演算法，利用CNN來同時預測多�
 Yolo 參考資料 : https://github.com/AlexeyAB  
 CNN 參考資料 : https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC5-1%E8%AC%9B-%E5%8D%B7%E7%A9%8D%E7%A5%9E%E7%B6%93%E7%B6%B2%E7%B5%A1%E4%BB%8B%E7%B4%B9-convolutional-neural-network-4f8249d65d4f  
 #### Labelimg  
-Yolo是屬於機器學習令譽當中監督式學習的一種，所以所有訓練資料都必須Label，底下連結為我們這次Label所使用的工具。  
+Yolo是屬於機器學習領域當中監督式學習的一種，所以所有訓練資料都必須Label，底下連結為我們這次Label所使用的工具。  
 連結 : https://github.com/tzutalin/labelImg  
 #### 訓練結果
 ![image](https://github.com/Aaron-Ace/DLAOIBOT/blob/main/resource/Yolo_Demo.jpg)  
