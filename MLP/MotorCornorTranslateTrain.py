@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import tensorflow as tf
-import math
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras import activations
@@ -58,54 +57,47 @@ def train(x, y, vx, vy, max_epochs, optim, model, loss ,servonum):
             vl = tf.reduce_mean(loss(vy, vout))
             print('S%d :Epoch %d: train MSE = %f valid MSE = %f'%(servonum, e, l.numpy(), vl.numpy()))
 
-def ServoLoad(servonum, data):
+def ServoTrain(servonum):
     all_coord = tf.convert_to_tensor(data[:, 2:4], dtype=tf.float32)
     all_target = tf.convert_to_tensor(data[:, servonum+3:servonum+4], dtype=tf.float32)
+    #print(data[:, servonum+3:servonum+4])
 
     train_ind, test_ind = split(all_coord.shape[0], 50)
     train_coord = all_coord[train_ind]
     train_target = all_target[train_ind]
-    global test_coord
     test_coord = all_coord[test_ind]
     test_target = all_target[test_ind]
     #print(train_coord.shape, test_coord.shape, train_target.shape, test_target.shape)
 
     model = AttRegressor(16, 16, train_coord, train_target)
-    modelsname = './MotorModel/S'+str(servonum)+'_model'
-    model.load_weights(modelsname)
+    model.load_weights('./MotorModel/S1_model')
+    # o = model(train_coord)
+    #print(model.trainable_variables)
+
+    optim = keras.optimizers.Adam(learning_rate=0.001)
+    loss = keras.losses.mean_squared_error
+    train(train_coord, train_target, test_coord, test_target, 100, optim, model, loss, servonum)
+
     pred = model(test_coord)
-    #print(test_coord)
-    #print(pred)
-    return model
+    test_out = tf.concat([pred, test_target], axis=1)
+    print(test_out)
+
+    out_filename = "./MotorModel/S"+str(servonum)+"_model"
+    model.save_weights(out_filename)
+    # model.load_weights(str)
 
 
-def MotorAngle(X,Y):
-
+if __name__ == '__main__':
     df = pd.read_excel(open('Collections.xlsx', 'rb'), sheet_name='工作表1')
     new_df = df.drop(columns=['格子編號'])
-    #print(new_df)
+    print(new_df)
     data = new_df.to_numpy()
-    #print(data.shape)
+    print(data.shape)
 
-    S1_model = ServoLoad(1, data)
-    S2_model = ServoLoad(2, data)
-    S3_model = ServoLoad(3, data)
-    S4_model = ServoLoad(4, data)
-    S5_model = ServoLoad(5, data)
-    S6_model = ServoLoad(6, data)
-
-    pred =[]
-    pred.append(round(S1_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
-    pred.append(round(S2_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
-    pred.append(round(S3_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
-    pred.append(round(S4_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
-    pred.append(round(S5_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
-    pred.append(round(S6_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
-
-    for prediction in pred:
-        print(prediction)
-    return pred
-if __name__ == '__main__':
-    MotorAngle(16.3742506,39.2201456)
-
+    ServoTrain(1)
+    #ServoTrain(2)
+    #ServoTrain(3)
+    #ServoTrain(4)
+    #ServoTrain(5)
+    #ServoTrain(6)
 

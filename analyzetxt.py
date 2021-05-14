@@ -90,4 +90,5 @@ def RecognizeItemPosition():
         print("\n")
     return RecognizeItem
 
-RecognizeItemPosition()
+if __name__ == '__main__':
+    RecognizeItemPosition()

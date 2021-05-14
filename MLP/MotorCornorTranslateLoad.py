@@ -105,7 +105,10 @@ def MotorAngle(X,Y):
     for prediction in pred:
         print(prediction)
     return pred
-if __name__ == '__main__':
-    MotorAngle(16.3742506,39.2201456)
+
+#MotorAngle(33.50270328,36.37526091)
+MotorAngle(16.3742506,39.2201456)
+#MotorAngle(26.33883009,39.00691897)
+
 
 

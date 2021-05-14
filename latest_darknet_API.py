@@ -126,7 +126,7 @@ class Detect:
 
 def latest_API(detect):
     # 讀取文件夾
-    image_root = r'/home/aaronace/Downloads/Project/testimage'
+    image_root = r'./testimage'
     save_root = r'./output'
     if not os.path.exists(save_root):
         os.makedirs(save_root)

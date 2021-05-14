@@ -2,40 +2,61 @@ from tkinter import *
 import cv2
 import serial
 import sys
-from main_choice import mainfunc
+from main import mainfunc
+
+def writefile():
+    id  =['Screw_Option:','Nut_Option:','Size_Big_Option:','Size_Medium_Option:','Size_Small_Option:']
+    file = open("OptionCheckList.ini", "w+")
+    file.write(id[0]+str(Screw.get())+"\n")
+    file.write(id[1]+str(Nut.get())+"\n")
+    file.write(id[2]+str(Big.get())+"\n")
+    file.write(id[3]+str(Mid.get())+"\n")
+    file.write(id[4]+str(Small.get())+"\n")
+    file.close()
+
 
 def ScrewIsChecked():
-    pass
-    '''if Screw.get() == 1:
-        file = open("OptionCheckList.ini", "w")
-        count = 0
-        for line in file:
-            if (count == 0):
-                line = "Screw_Option:1"
-            count += 1
-        file.close()
+    if Screw.get() == 1:
+        Screw.set(1)
+        print("2224")
+        writefile()
     elif Screw.get() == 0:
-        file = open("OptionCheckList.ini", "w")
-        count = 0
-        for line in file:
-            if (count == 0):
-                line = "Screw_Option:0"
-            count += 1
-        file.close()
+        Screw.set(0)
+        writefile()
     else:
-        messagebox.showerror('PythonGuides', 'Something went wrong!')'''
+        messagebox.showerror('PythonGuides', 'Something went wrong!')
 
 def NutIsChecked():
-    pass
+    if Nut.get() == 1:
+        writefile()
+    elif Nut.get() == 0:
+        writefile()
+    else:
+        messagebox.showerror('PythonGuides', 'Something went wrong!')
 
 def BigIsChecked():
-    pass
+    if Big.get() == 1:
+        writefile()
+    elif Big.get() == 0:
+        writefile()
+    else:
+        messagebox.showerror('PythonGuides', 'Something went wrong!')
 
 def MidIsChecked():
-    pass
+    if Mid.get() == 1:
+        writefile()
+    elif Mid.get() == 0:
+        writefile()
+    else:
+        messagebox.showerror('PythonGuides', 'Something went wrong!')
 
 def SmallIsChecked():
-    pass
+    if Small.get() == 1:
+        writefile()
+    elif Small.get() == 0:
+        writefile()
+    else:
+        messagebox.showerror('PythonGuides', 'Something went wrong!')
 
 def CameraCheck():
     cam = cv2.VideoCapture(0)
@@ -74,31 +95,34 @@ if __name__ == '__main__':
     SerialStatus = Button(ws, text='Status', padx=10, pady=5, state=DISABLED).place(x=290, y=50)
     SerialCheckbtn = Button(ws, text='Check', padx=20, pady=5, command=SerialCheck).place(x=10,y=50)
 
+    file = open('OptionCheckList.ini', 'r')
 
+    global Screw
+    global Nut
+    global Big
+    global Mid
+    global Small
     Screw = IntVar()
     Nut   = IntVar()
     Big   = IntVar()
     Mid   = IntVar()
     Small = IntVar()
-    Checkbutton(ws, text="Screw" , variable=Screw, onvalue=1, offvalue=0, command=ScrewIsChecked()).place(x=5,y=100)
-    Checkbutton(ws, text=" Nut " , variable=Nut  , onvalue=1, offvalue=0, command=NutIsChecked()).place(x=105,y=100)
-    Checkbutton(ws, text=" Big " , variable=Big  , onvalue=1, offvalue=0, command=BigIsChecked()).place(x=5,y=150)
-    Checkbutton(ws, text="Medium", variable=Mid  , onvalue=1, offvalue=0, command=MidIsChecked()).place(x=105,y=150)
-    Checkbutton(ws, text="Small" , variable=Small, onvalue=1, offvalue=0, command=SmallIsChecked()).place(x=205,y=150)
-
-    file = open('OptionCheckList.ini', 'r')
-    log = []
     for line in file:
-        if (line.find('Screw_Option:') != -1):
-            Screw = int(line[line.find('Screw_Option:') + 13:line.find('Screw_Option:') + 14])
-        if (line.find('Nut_Option:') != -1):
-            Nut = int(line[line.find('Nut_Option:') + 11:line.find('Nut_Option:') + 12])
-        if (line.find('Size_Big_Option:') != -1):
-            Big = int(line[line.find('Size_Big_Option:') + 16:line.find('Size_Big_Option:') + 17])
-        if (line.find('Size_Medium_Option:') != -1):
-            Mid = int(line[line.find('Size_Medium_Option:') + 19:line.find('Size_Medium_Option:') + 20])
-        if (line.find('Size_Small_Option:') != -1):
-            Small = int(line[line.find('Size_Small_Option:') + 18:line.find('Size_Small_Option:') + 19])
+        if (line.find('Screw_Option:') == 0):
+            Checkbutton(ws, text="Screw" , variable=Screw, onvalue=1, offvalue=0, command=ScrewIsChecked()).place(x=5,y=100)
+            Screw.set(int(line[line.find('Screw_Option:') + 13:line.find('Screw_Option:') + 14]))
+        if (line.find('Nut_Option:') == 0):
+            Checkbutton(ws, text=" Nut " , variable=Nut, onvalue=1, offvalue=0, command=NutIsChecked()).place(x=105,y=100)
+            Nut.set(int(line[line.find('Nut_Option:') + 11:line.find('Nut_Option:') + 12]))
+        if (line.find('Size_Big_Option:') == 0):
+            Checkbutton(ws, text=" Big " , variable=Big, onvalue=1, offvalue=0, command=BigIsChecked()).place(x=5,y=150)
+            Big.set(int(line[line.find('Size_Big_Option:') + 16:line.find('Size_Big_Option:') + 17]))
+        if (line.find('Size_Medium_Option:') == 0):
+            Checkbutton(ws, text="Medium", variable=Mid, onvalue=1, offvalue=0, command=MidIsChecked()).place(x=105,y=150)
+            Mid.set(int(line[line.find('Size_Medium_Option:') + 19:line.find('Size_Medium_Option:') + 20]))
+        if (line.find('Size_Small_Option:') == 0):
+            Checkbutton(ws, text="Small" , variable=Small, onvalue=1, offvalue=0, command=SmallIsChecked()).place(x=205,y=150)
+            Small.set(int(line[line.find('Size_Small_Option:') + 18:line.find('Size_Small_Option:') + 19]))
     file.close()
 
     AutoCorrectbtn = Button(ws, text='AutoCorrect', padx=40, pady=5).place(x=10,y=200)

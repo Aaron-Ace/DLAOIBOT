@@ -180,4 +180,5 @@ def latest_API():
 
     return 1
 
-latest_API()
+if __name__ == '__main__':
+    latest_API()

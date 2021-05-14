@@ -202,9 +202,9 @@ def RoboticArm(detect, ObjectOption, SizeOption):
                 print("Error Object Option")
 
 def mainfunc():
-    detect = Detect(metaPath=r'./cfg/obj.data',
-                    configPath=r'./cfg/yolo-obj.cfg',
-                    weightPath=r'./backup/yolo-obj_last.weights',
+    detect = Detect(metaPath=r'./config/obj.data',
+                    configPath=r'./config/yolo-obj.cfg',
+                    weightPath=r'./Weight/yolo-obj_last.weights',
                     gpu_id=0)
     file = open('OptionCheckList.ini', 'r')
     log =[]

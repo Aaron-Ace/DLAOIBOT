@@ -32,4 +32,5 @@ def xy2uv(test_X,test_Y):
     print("U:{} V:{}".format(output[0],output[1]))
     return output
 
-xy2uv(367,373)
+if __name__ == '__main__':
+    xy2uv(367,373)

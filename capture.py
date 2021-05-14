@@ -46,4 +46,6 @@ def capture():
     cv2.destroyAllWindows()
 
     return 1
-capture()
+
+if __name__ == '__main__':
+    capture()

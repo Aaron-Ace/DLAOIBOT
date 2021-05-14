@@ -102,4 +102,5 @@ def Correction():
     file.close()
     print(corner)
 
-Correction()
+if __name__ == '__main__':
+    Correction()
