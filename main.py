@@ -120,7 +120,7 @@ def RoboticArm(detect, ObjectOption, SizeOption):
         UV = xy2uv(item.x, item.y)
         Angle = MotorAngle(UV[0], UV[1])
         Angle[1] = Angle[1]-4
-        Angle[4] = Angle[4]-2
+        Angle[4] = Angle[4]+3
         Angle[5] = Angle[5]+25
         ArmControl(serial,Angle, item.size, item.category)
         #ArmControl(serial, [65, 94, 91, 70, 158, 90], 1)

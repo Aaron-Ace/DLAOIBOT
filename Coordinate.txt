@@ -1,1 +1,5 @@
 Objects:
+Nut: 99.96%    (left_x: 629   top_y:  424   width:   64   height:  63 size: [2])
+Nut: 99.97%    (left_x: 595   top_y:  142   width:   54   height:  54 size: [3])
+Nut: 99.98%    (left_x: 475   top_y:  254   width:   73   height:  70 size: [1])
+Screw: 99.98%    (left_x: 134   top_y:  182   width:   86   height:  74 size: [3])
