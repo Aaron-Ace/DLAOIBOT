@@ -11,14 +11,14 @@
 ## 流程簡析
 * Step 1 : **拍攝圖片**  
 利用網路攝影機拍取平台畫面，將圖片儲存至電腦。  
-* Step 2 : **Yolo**  
-將儲存的圖片放進Yolo模型，讓模型抓取特徵，分辨出螺絲或螺帽。  
+* Step 2 : **YOLO**  
+將儲存的圖片放進YOLO模型，讓模型抓取特徵，分辨出螺絲或螺帽。  
 * Step 3 : **辨識物件**  
 利用Yolo取得辨識出來的位置座標以及物件bouning box的長和寬  
 * Step 4 : **分類器**  
 利用二元決定樹(binary decision tree)的方法製作分類器。   
 * Step 5 : **辨識物件大小**  
-利用分類器辨識物件的大小，改善Yolo無法辨識物體大小的缺陷。  
+利用分類器辨識物件的大小，改善YOLO無法辨識物體大小的缺陷。  
 * Step 6 : **預測馬達角度**  
 利用神經網路K-Nearest Neighbors(KNN)，根據物體座標去預測6個軸的馬達角度。   
 * Step 7 : **夾取物件**  
@@ -44,19 +44,19 @@
 *	Sklearn
 ---
 ## 技術應用  
-### Yolo  
-Yolo是一種靠CNN實現的物件識別演算法，利用CNN來同時預測多個bounding-box並且針對每一個box來計算物體的機率，而在訓練的時候也是直接拿整張圖丟到NN中來訓練，這樣end-to-end的演算法可以避免傳統object detection的必須分開訓練的缺點，並且大幅加快運算速度。  
-Yolo 參考資料 : https://github.com/AlexeyAB  
+### YOLO  
+YOLO是一種靠CNN實現的物件識別演算法，利用CNN來同時預測多個bounding-box並且針對每一個box來計算物體的機率，而在訓練的時候也是直接拿整張圖丟到CNN中來訓練，這樣end-to-end的演算法可以避免傳統object detection的必須分開訓練的缺點，並且大幅加快運算速度。  
+YOLO 參考資料 : https://github.com/AlexeyAB  
 CNN 參考資料 : https://reurl.cc/qmyZDp 
-#### Labelimg  
-Yolo是屬於機器學習領域當中監督式學習的一種，所以所有訓練資料都必須Label，底下連結為我們這次Label所使用的工具。  
+#### LabelImg  
+YOLO是屬於機器學習領域當中監督式學習的一種，所以所有訓練資料都必須Label，底下連結為我們這次Label所使用的工具。  
 連結 : https://github.com/tzutalin/labelImg  
 #### 訓練結果
 ![image](https://github.com/Aaron-Ace/DLAOIBOT/blob/main/resource/Yolo_Demo.jpg)  
 
 ---
 ### 二元決策樹(Binary Decision Tree)
-我們將Yolo辨識出物件的BoundingBox的長和寬，放進此Binary Decision Tree中，來辨別此物件的大小。
+我們將YOLO辨識出物件的BoundingBox的長和寬，放進此Binary Decision Tree中，來辨別此物件的大小。
 * **Requirement**
   * **csv**
   * **Pandas**
@@ -64,7 +64,7 @@ Yolo是屬於機器學習領域當中監督式學習的一種，所以所有訓�
   * **Numpy**  
 
 程式碼 : https://github.com/Aaron-Ace/DLAOIBOT/blob/main/decisionTree.py  
-binary decision tree 參考資料 : https://medium.com/@Packt_Pub/binary-decision-trees-1ec94cfed208  
+Binary Decision Tree 參考資料 : https://medium.com/@Packt_Pub/binary-decision-trees-1ec94cfed208  
 
 ---
 ### Arduino  
@@ -98,7 +98,7 @@ import serial
 ``` 
 ---
 ### Attend Regressor
-我們用此神經網路模型，將圖片經過Yolo模型所得出的物件位置(x, y)後並採用Perspective Transform的方式，轉換成平台上的座標(u, v)，  
+我們用此神經網路模型，將圖片經過YOLO模型所得出的物件位置(x, y)後並採用Perspective Transform的方式，轉換成平台上的座標(u, v)，  
 將此(u, v)放入神經網路中，得出機器手臂的6個軸角度。  
 * **Requirement**  
   * **Python**  
@@ -157,7 +157,7 @@ python GUI.py
 ---
 # 成果展示
 * **成果辨識率**  
-  * **Yolo辨識率** : 螺絲 99.6%  螺帽 99.5% 
+  * **YOLO辨識率** : 螺絲 99.6%  螺帽 99.5% 
   * **夾取成功率** : 螺絲 81.25%  螺帽 37.9%
   * **分類成功率** : 螺絲 97.5%  螺帽 90.4%
 * **影片連結** : https://youtu.be/YGjaYCNhIYg  
