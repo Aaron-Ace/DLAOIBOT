@@ -96,8 +96,8 @@ def MotorAngle(X,Y):
 
     pred =[]
     pred.append(round(S1_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
-    pred.append(round(S2_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
-    pred.append(round(S3_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
+    pred.append(round(S2_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0])+3)
+    pred.append(round(S3_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0])-3)
     pred.append(round(S4_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
     pred.append(round(S5_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
     pred.append(round(S6_model(tf.convert_to_tensor([[X, Y]], dtype=tf.float32)).numpy()[0][0]))
