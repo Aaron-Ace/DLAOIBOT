@@ -30,7 +30,7 @@ serial = serial.Serial(usbport, 2000000, timeout=1)
 
 
 def Yolo(detect):
-    time.sleep(8)
+    time.sleep(10)
     capture()
     latest_API(detect)
     position = RecognizeItemPosition()
@@ -119,8 +119,8 @@ def RoboticArm(detect, ObjectOption, SizeOption):
         # print(item.y)
         UV = xy2uv(item.x, item.y)
         Angle = MotorAngle(UV[0], UV[1])
-        Angle[1] = Angle[1]-4
-        Angle[4] = Angle[4]+3
+        Angle[1] = Angle[1]-5
+        Angle[4] = Angle[4]+2
         Angle[5] = Angle[5]+25
         ArmControl(serial,Angle, item.size, item.category)
         #ArmControl(serial, [65, 94, 91, 70, 158, 90], 1)
