@@ -15,21 +15,6 @@ def writefile():
     file.write(id[4]+str(Small.get())+"\n")
     file.close()
 
-def ScrewIsChecked():
-    writefile()
-
-def NutIsChecked():
-    writefile()
-
-def BigIsChecked():
-    writefile()
-
-def MidIsChecked():
-    writefile()
-
-def SmallIsChecked():
-    writefile()
-
 def CameraCheck():
     cam = cv2.VideoCapture(0)
     ret, frame = cam.read()
@@ -78,19 +63,19 @@ if __name__ == '__main__':
     Small = IntVar()
     for line in file:
         if (line.find('Screw_Option:') == 0):
-            Checkbutton(ws, text="Screw" , variable=Screw, onvalue=1, offvalue=0, command=ScrewIsChecked).place(x=5,y=100)
+            Checkbutton(ws, text="Screw" , variable=Screw, onvalue=1, offvalue=0, command=writefile).place(x=5,y=100)
             Screw.set(int(line[line.find('Screw_Option:') + 13:line.find('Screw_Option:') + 14]))
         if (line.find('Nut_Option:') == 0):
-            Checkbutton(ws, text=" Nut " , variable=Nut, onvalue=1, offvalue=0, command=NutIsChecked).place(x=105,y=100)
+            Checkbutton(ws, text=" Nut " , variable=Nut, onvalue=1, offvalue=0, command=writefile).place(x=105,y=100)
             Nut.set(int(line[line.find('Nut_Option:') + 11:line.find('Nut_Option:') + 12]))
         if (line.find('Size_Big_Option:') == 0):
-            Checkbutton(ws, text=" Big " , variable=Big, onvalue=1, offvalue=0, command=BigIsChecked).place(x=5,y=150)
+            Checkbutton(ws, text=" Big " , variable=Big, onvalue=1, offvalue=0, command=writefile).place(x=5,y=150)
             Big.set(int(line[line.find('Size_Big_Option:') + 16:line.find('Size_Big_Option:') + 17]))
         if (line.find('Size_Medium_Option:') == 0):
-            Checkbutton(ws, text="Medium", variable=Mid, onvalue=1, offvalue=0, command=MidIsChecked).place(x=105,y=150)
+            Checkbutton(ws, text="Medium", variable=Mid, onvalue=1, offvalue=0, command=writefile).place(x=105,y=150)
             Mid.set(int(line[line.find('Size_Medium_Option:') + 19:line.find('Size_Medium_Option:') + 20]))
         if (line.find('Size_Small_Option:') == 0):
-            Checkbutton(ws, text="Small" , variable=Small, onvalue=1, offvalue=0, command=SmallIsChecked).place(x=205,y=150)
+            Checkbutton(ws, text="Small" , variable=Small, onvalue=1, offvalue=0, command=writefile).place(x=205,y=150)
             Small.set(int(line[line.find('Size_Small_Option:') + 18:line.find('Size_Small_Option:') + 19]))
     file.close()
 

@@ -1,7 +1,29 @@
 import cv2
 import numpy as np
+from capture import capture
+
+def Calc(w, h, k ,m, img):
+    A = np.zeros([1, 2], dtype=int)
+    for i in range(w, h):
+        for j in range(k, m):
+            if (img[j, i] == 0):
+                B = np.array([[j, i]], dtype=int)
+                A = np.append(A, B, axis=0)
+
+    A = np.delete(A, 0, axis=0)
+    sum_j = 0
+    sum_i = 0
+    for i in range(0, len(A)):
+        sum_j += A[i][0]
+        sum_i += A[i][1]
+    mean_j = int(sum_j / len(A))
+    mean_i = int(sum_i / len(A))
+    temp = np.array([[mean_i, mean_j]])
+    return  temp
+
 
 def Correction():
+    capture()
     # 讀取影像作成二值化
     img = cv2.imread('./testimage/capture.png')
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -16,80 +38,13 @@ def Correction():
     corner = np.zeros((1, 2), dtype=int)
 
     # 左上
-    A = np.zeros([1, 2], dtype=int)
-    for i in range(0, 375):
-        for j in range(0, 375):
-            if(out[j, i] == 0):
-                B = np.array([[j, i]], dtype=int)
-                A = np.append(A, B, axis=0)
-
-    A = np.delete(A, 0, axis=0)
-    sum_j = 0
-    sum_i = 0
-    for i in range (0, len(A)):
-        sum_j += A[i][0]
-        sum_i += A[i][1]
-    mean_j = int(sum_j/len(A))
-    mean_i = int(sum_i/len(A))
-    temp = np.array([[mean_i, mean_j]])
-    corner = np.append(corner, temp, axis=0)
-
+    corner = np.append(corner, Calc(0,375,0,375, out), axis=0)
     # 右上
-    A = np.zeros([1, 2], dtype=int)
-    for i in range(375, 750):
-        for j in range(0, 375):
-            if(out[j, i] == 0):
-                B = np.array([[j, i]], dtype=int)
-                A = np.append(A, B, axis=0)
-
-    A = np.delete(A, 0, axis=0)
-    sum_j = 0
-    sum_i = 0
-    for i in range (0, len(A)):
-        sum_j += A[i][0]
-        sum_i += A[i][1]
-    mean_j = int(sum_j/len(A))
-    mean_i = int(sum_i/len(A))
-    temp = np.array([[mean_i, mean_j]])
-    corner = np.append(corner, temp, axis=0)
-
+    corner = np.append(corner, Calc(375,750,0,375, out), axis=0)
     # 左下
-    A = np.zeros([1, 2], dtype=int)
-    for i in range(0, 375):
-        for j in range(375, 750):
-            if(out[j, i] == 0):
-                B = np.array([[j, i]], dtype=int)
-                A = np.append(A, B, axis=0)
-
-    A = np.delete(A, 0, axis=0)
-    sum_j = 0
-    sum_i = 0
-    for i in range (0, len(A)):
-        sum_j += A[i][0]
-        sum_i += A[i][1]
-    mean_j = int(sum_j/len(A))
-    mean_i = int(sum_i/len(A))
-    temp = np.array([[mean_i, mean_j]])
-    corner = np.append(corner, temp, axis=0)
-
+    corner = np.append(corner, Calc(0, 375, 375, 750 ,out), axis=0)
     # 右下
-    A = np.zeros([1, 2], dtype=int)
-    for i in range(375, 750):
-        for j in range(375, 750):
-            if(out[j, i] == 0):
-                B = np.array([[j, i]], dtype=int)
-                A = np.append(A, B, axis=0)
-
-    A = np.delete(A, 0, axis=0)
-    sum_j = 0
-    sum_i = 0
-    for i in range (0, len(A)):
-        sum_j += A[i][0]
-        sum_i += A[i][1]
-    mean_j = int(sum_j/len(A))
-    mean_i = int(sum_i/len(A))
-    temp = np.array([[mean_i, mean_j]])
-    corner = np.append(corner, temp, axis=0)
+    corner = np.append(corner, Calc(375, 750, 375, 750, out), axis=0)
 
     # 黑點輸出
     corner = np.delete(corner, 0, axis=0)

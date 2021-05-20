@@ -21,7 +21,8 @@ def xy2uv(test_X,test_Y):
     file.close()
     output=[]
     height, width = 40, 40 #(y, x)
-    src_points = np.array([[corner[0][0], corner[0][1]], [corner[1][0], corner[1][1]], [corner[2][0], corner[2][1]], [corner[3][0], corner[3][1]]],np.float32) #(x, y)
+    src_points = np.array([[corner[0][0], corner[0][1]], [corner[1][0], corner[1][1]], [corner[2][0], corner[2][1]], \
+                           [corner[3][0], corner[3][1]]],np.float32) #(x, y)
     dst_points = np.array([[-20, -20], [-20, 20], [20, -20], [20, 20]],np.float32) #(x, y)
     M = cv2.getPerspectiveTransform(src_points, dst_points)
     org1 = np.array([corner[0][0], corner[0][1], 1])
@@ -35,5 +36,5 @@ def xy2uv(test_X,test_Y):
 
     return output
 
-#Correction()
-xy2uv(430,392)
+if __name__ == '__main__':
+    xy2uv(430,392)
