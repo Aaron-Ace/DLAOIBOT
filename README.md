@@ -158,8 +158,8 @@ python GUI.py
 # 成果展示
 * **成果辨識率**  
   * **YOLO辨識率** : 螺絲 99.6%  螺帽 99.5% 
-  * **夾取成功率** : 螺絲 81.25%  螺帽 37.9%
-  * **分類成功率** : 螺絲 97.5%  螺帽 90.4%
+  * **夾取成功率** : 螺絲 95.42%  螺帽 92.92%
+  * **分類成功率** : 螺絲 97.5%  螺帽 95.0%
 * **影片連結** : https://youtu.be/YGjaYCNhIYg  
 * **平台展示**
 ![image](https://github.com/Aaron-Ace/DLAOIBOT/blob/main/resource/Platform.png)
